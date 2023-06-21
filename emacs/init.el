@@ -1,1 +1,0 @@
-/home/charlie/.config/emacs/init.el

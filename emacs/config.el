@@ -1,12 +1,3 @@
-#+TITLE: Emacs Config
-#+CREATOR: Charlie
-#+LANGUAGE: en
-
-My emacs config! Some of which I actually wrote!
-
-* Melpa and Use Package
-
-#+BEGIN_SRC emacs-lisp
   (require 'package)
   (setq package-enable-at-startup nil)
   (add-to-list 'package-archives
@@ -20,13 +11,7 @@ My emacs config! Some of which I actually wrote!
     (package-refresh-contents)
     (package-install 'use-package))
   (setq use-package-always-ensure t)
-#+END_SRC
 
-* Theming
-
-Load zenburn theme and disable the scroll bar and tool bar, but keep menu bar
-
-#+BEGIN_SRC emacs-lisp
   (use-package zenburn-theme
       :config
       (load-theme 'zenburn t))
@@ -34,22 +19,10 @@ Load zenburn theme and disable the scroll bar and tool bar, but keep menu bar
   ;; disable scroll and toll bar
       (scroll-bar-mode -1)
       (tool-bar-mode -1)
-#+END_SRC
 
-** Font
-
-Use Fira Code Medium font, must have it installed obviously!
-
-#+BEGIN_SRC emacs-lisp
   (add-to-list 'default-frame-alist
              '(font . "Fira Code Medium"))
-#+END_SRC
 
-** Ligature support
-
-Setup ligatures for font using ligature.el
-
-#+BEGIN_SRC emacs-lisp
   (use-package ligature
     :config
     ;; Enable all ligatures in programming modes
@@ -67,12 +40,7 @@ Setup ligatures for font using ligature.el
                                        "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
                                        "\\\\" "://"))
     (global-ligature-mode t))
-#+END_SRC
-** Transparency
 
-This makes the emacs GUI window semi-transparent, <C-c t> will toggle the transparency.
-
-#+BEGIN_SRC emacs-lisp
   ;;(set-frame-parameter (selected-frame) 'alpha '(<active> . <inactive>))
    ;;(set-frame-parameter (selected-frame) 'alpha <both>)
    (set-frame-parameter (selected-frame) 'alpha 95)
@@ -90,24 +58,7 @@ This makes the emacs GUI window semi-transparent, <C-c t> will toggle the transp
                100)
           '(95) '(100 . 100)))))
  (global-set-key (kbd "C-c t") 'toggle-transparency)
-#+END_SRC
 
-* ORG Tweaks
-
-#** Org Bullets
-#
-#Use org bullets to get nicer bullet points in org mode
-#
-##+BEGIN_SRC emacs-lisp
-#  (use-package org-bullets
-#    :ensure t)
-#  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-#
-##+END_SRC
-
-** Org Roam
-
-#+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook 'org-indent-mode)
   (setq org-directory "~/Documents/notes"
       org-agenda-files (list org-directory)
@@ -130,12 +81,7 @@ This makes the emacs GUI window semi-transparent, <C-c t> will toggle the transp
   (setq org-src-preserve-indentation t
       org-src-tab-acts-natively t
       org-edit-src-content-indentation 2)
-#+END_SRC
 
-* Projectile
-Projectile is used for managing projects in Emacs.
-
-#+BEGIN_SRC emacs-lisp
   ;;needed for projects file
   (use-package projectile
     :ensure t
@@ -145,12 +91,7 @@ Projectile is used for managing projects in Emacs.
       projectile-mode-map
         (kbd "C-c p")
       'projectile-command-map))
-#+END_SRC
 
-* Dashboard
-Dashboard for a new splash screen with various menus for org agenda, projectile etc.
-
-#+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-message t)
   (use-package dashboard
     :init
@@ -185,13 +126,7 @@ Dashboard for a new splash screen with various menus for org agenda, projectile 
             (agenda . 5)
             (projects . 5)
                   (bookmarks . 5))))
-#+END_SRC
 
-* Evil Mode
-
-Evil mode for vim keybindings in emacs
-
-#+BEGIN_SRC emacs-lisp
   (use-package evil
     :ensure t  ;; install if not installed
     :init      ;; tweak evil's configuration before loading it
@@ -212,33 +147,11 @@ Evil mode for vim keybindings in emacs
 
   ;; bind escape to cancel all shortcuts
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-#+END_SRC
-
-
-** Mode Line
-
-*** Basic Customization
-
-#+begin_src emacs-lisp
 
   (setq display-time-format "%l:%M %p %b %y"
         display-time-default-load-average nil)
 
-#+end_src
-
-*** Enable Mode Diminishing
-
-The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky minor modes from the modelines.
-
-#+begin_src emacs-lisp
-
   ;;(setup (:pkg diminish))
-
-#+end_src
-
-*** Doom Modeline
-
-#+begin_src emacs-lisp
 
       ;; You must run (all-the-icons-install-fonts) one time after
       ;; installing this package!
@@ -247,12 +160,8 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
 
 (use-package doom-modeline
   :ensure t
-  :init (doom-modeline-mode 1))  
-#+end_src
+  :init (doom-modeline-mode 1))
 
-* tab stop
-
-#+BEGIN_SRC emacs-lisp
   ;; set default tab char's display width to 2 spaces
   (setq-default tab-width 2) ; emacs 23.1 to 26 default to 8
 
@@ -265,11 +174,7 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
   ;; emacs 23.1 to 26, default to t
   ;; if indent-tabs-mode is t, it means it may use tab, resulting mixed space and tab
   )
-#+END_SRC
 
-* Git integration
-
-#+BEGIN_SRC emacs-lisp
 (use-package magit
   :ensure t
   :config
@@ -277,10 +182,7 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
   (setq git-commit-summary-max-length 50)
   :bind
   ("C-c m" . magit-status))
-#+END_SRC
 
-* Relative line numbers
-#+BEGIN_SRC emacs-lisp
     (require 'display-line-numbers)
 
   (defcustom display-line-numbers-exempt-modes
@@ -299,28 +201,15 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
 
   (global-display-line-numbers-mode)
     (setq display-line-numbers-type 'relative)
-#+END_SRC
 
-* Reduce startup time
-#+BEGIN_SRC emacs-lisp
 ;; Increases Garbage Collection During Startup
 (setq startup/gc-cons-threshold gc-cons-threshold)
 (setq gc-cons-threshold most-positive-fixnum)
 (defun startup/reset-gc () (setq gc-cons-threshold startup/gc-cons-threshold))
 (add-hook 'emacs-startup-hook 'startup/reset-gc)
-#+END_SRC
 
-* All the Icons
-Nice little icon pack. Neotree, doom-modeline and dashboard use this although it is not strictly required.
-
-#+BEGIN_SRC emacs-lisp
   (use-package all-the-icons)
-#+END_SRC
 
-* Python
-=lsp-mode= Depends on =pyls= from pip.
-
-#+BEGIN_SRC emacs-lisp
 (setq lsp-pyls-server-command "/home/charlie/.local/bin/pylsp")
 
 ;;(setenv "PATH" (concat (getenv "PATH") ":/home/charlie/.local/bin"))
@@ -339,11 +228,7 @@ Nice little icon pack. Neotree, doom-modeline and dashboard use this although it
 (use-package pyvenv
   :config
   (pyvenv-mode 1))
-#+END_SRC
 
-* Company autocompletion
-
-#+BEGIN_SRC emacs-lisp
 (use-package company
   :ensure t
   :after lsp-mode
@@ -366,12 +251,7 @@ Nice little icon pack. Neotree, doom-modeline and dashboard use this although it
 ;; company box tweaks appearance of the completion box
 (use-package company-box
   :hook (company-mode . company-box-mode))
-#+END_SRC
 
-* C/C++
-Irony is the company backend for C and C++. Will need clang to work.
-
-#+BEGIN_SRC emacs-lisp
 (use-package company-c-headers
   :defer nil
   :ensure t)
@@ -390,11 +270,7 @@ Irony is the company backend for C and C++. Will need clang to work.
   :hook
   ((c++-mode c-mode) . irony-mode)
   ('irony-mode-hook) . 'irony-cdb-autosetup-compile-options)
-#+END_SRC
 
-* Java
-
-#+BEGIN_SRC emacs-lisp
   ;; use lsp-mode. This should be in its own section
   (use-package lsp-mode
     :hook ((lsp-mode . lsp-enable-which-key-integration)))
@@ -436,21 +312,13 @@ Irony is the company backend for C and C++. Will need clang to work.
 
   ;; Indent arguments on the next line as indented body.
   (c-set-offset 'arglist-intro '++))
-(add-hook 'java-mode-hook 'my-java-mode-hook)  
-#+END_SRC
+(add-hook 'java-mode-hook 'my-java-mode-hook)
 
-* Terminal
-
-#+BEGIN_SRC emacs-lisp
 (use-package vterm
   :ensure t
   :init
   (global-set-key (kbd "<s-return>") 'vterm))
-#+END_SRC
 
-* LaTeX (AUCTeX)
-
-#+BEGIN_SRC emacs-lisp
   (use-package auctex
     :ensure t
     :defer t)
@@ -472,33 +340,20 @@ Irony is the company backend for C and C++. Will need clang to work.
   ;; switch pdf viewer to pdf-tools
     (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
       TeX-source-correlate-start-server t)
-#+END_SRC
 
-* Better PDF Experience
-#+BEGIN_SRC emacs-lisp
   (use-package pdf-tools
   :ensure t
   :config
   (pdf-tools-install))
-#+END_SRC
 
-* disable autosave
-#+BEGIN_SRC emacs-lisp
 ;; stop creating those #auto-save# files
 (setq auto-save-default nil)
-#+END_SRC
 
-* Scrolling
-Emacs' default scrolling is annoying because of the sudden half-page jumps.  Also, I wanted to adjust the scrolling speed.
-#+begin_src emacs-lisp
 (setq scroll-conservatively 101) ;; value greater than 100 gets rid of half page jumping
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 3))) ;; how many lines at a time
 (setq mouse-wheel-progressive-speed t) ;; accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-#+end_src
 
-* Neotree file manager
-#+BEGIN_SRC emacs-lisp
   (use-package neotree
   :ensure t)
   (require 'neotree)
@@ -518,16 +373,9 @@ Emacs' default scrolling is annoying because of the sudden half-page jumps.  Als
   ;;                (define-key evil-normal-state-local-map (kbd "p") 'neotree-previous-line)
   ;;                (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
   ;;                (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle)))
-#+END_SRC
 
-* Org tweaks
-#+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook '(lambda () (visual-line-mode 1)))
-#+END_SRC
-* General tweaks
 
-** kill buffers
-#+BEGIN_SRC emacs-lisp
 (global-set-key [(control x) (k)] 'kill-this-buffer)
 
 ;;reload emacs init.el
@@ -569,15 +417,6 @@ Emacs' default scrolling is annoying because of the sudden half-page jumps.  Als
 	(balance-windows)
 	(other-window 1))
  (global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
-#+END_SRC
-
-* Key Binding Completion
-
-Which-key is a minor mode for Emacs that displays the key bindings following your currently entered incomplete command (a prefix) in a popup.
-
-=NOTE:= Which-key has an annoying bug that in some fonts and font sizes, the bottom row in which key gets covered up by the modeline.
-
-#+begin_src emacs-lisp
 
 (use-package which-key
 
@@ -609,39 +448,18 @@ Which-key is a minor mode for Emacs that displays the key bindings following you
 
 (which-key-mode)
 
-#+end_src
-
-
-* copy buffer
-
-Copy contents of a buffer to a new one.
-
-#+begin_src emacs-lisp
  (defun my-copy-buffer ()
   (interactive)
   (get-buffer-create "NEWBUF")
   (copy-to-buffer "NEWBUF" (point-min) (point-max))
   (switch-to-buffer "NEWBUF"))
-#+end_src
 
-* Reload init.el
-
-Function and keybinding to C-c r to reload the init file.
-
-#+begin_src emacs-lisp
 (defun reload-init-file ()
   (interactive)
   (load-file user-init-file))
 
 (global-set-key (kbd "C-c r") 'reload-init-file)
-#+end_src
 
-* ERC
-
-A great IRC client built into emacs.
-
-#+begin_src emacs-lisp
   (setq erc-server "irc.libera.chat"
         erc-track-shorten-start 8
         erc-autojoin-channels-alist '(("irc-libera.chat" "#emacs" "linux")))
-#+end_src
