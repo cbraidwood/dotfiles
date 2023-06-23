@@ -645,3 +645,24 @@ A great IRC client built into emacs.
         erc-track-shorten-start 8
         erc-autojoin-channels-alist '(("irc-libera.chat" "#emacs" "linux")))
 #+end_src
+
+* elfeed
+
+View RSS feeds in emacs.
+
+#+begin_src emacs-lisp
+  (use-package elfeed
+    :ensure t
+    :config
+    (setq elfeed-db-directory (expand-file-name "elfeed" user-emacs-directory)
+          elfeed-show-entry-switch 'display-buffer)
+    :bind
+    ("C-x w" . elfeed ))
+
+  ;; Load elfeed-org
+  (use-package elfeed-org
+    :ensure t
+    :config
+    (elfeed-org)
+    (setq rmh-elfeed-org-files (list "~/.config/emacs/rssfeeds.org")))
+#+end_src
