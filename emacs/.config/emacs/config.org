@@ -422,7 +422,7 @@ Irony is the company backend for C and C++. Will need clang to work.
 (defun my-java-mode-hook ()
   (auto-fill-mode)
   (flycheck-mode)
-  (git-gutter+-mode)
+  ;;(git-gutter+-mode)
   (subword-mode)
   (yas-minor-mode)
   (set-fringe-style '(8 . 0))
@@ -693,4 +693,5 @@ View RSS feeds in emacs.
     :bind (:map elfeed-show-mode-map
                 ("C-c C-f" . elfeed-tube-mpv-follow-mode)
                 ("C-c C-w" . elfeed-tube-mpv-where)))
+
 #+end_src
