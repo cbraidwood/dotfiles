@@ -92,20 +92,7 @@ This makes the emacs GUI window semi-transparent, <C-c t> will toggle the transp
  (global-set-key (kbd "C-c t") 'toggle-transparency)
 #+END_SRC
 
-* ORG Tweaks
-
-#** Org Bullets
-#
-#Use org bullets to get nicer bullet points in org mode
-#
-##+BEGIN_SRC emacs-lisp
-#  (use-package org-bullets
-#    :ensure t)
-#  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-#
-##+END_SRC
-
-** Org Roam
+* Org Roam
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook 'org-indent-mode)
@@ -188,9 +175,8 @@ Dashboard for a new splash screen with various menus for org agenda, projectile 
 #+END_SRC
 
 * Evil Mode
-
 Evil mode for vim keybindings in emacs
-
+** Setup Evil
 #+BEGIN_SRC emacs-lisp
   (use-package evil
     :ensure t  ;; install if not installed
@@ -215,20 +201,13 @@ Evil mode for vim keybindings in emacs
 
 #+END_SRC
 
-
 ** Mode Line
-
 *** Basic Customization
-
 #+begin_src emacs-lisp
-
   (setq display-time-format "%l:%M %p %b %y"
         display-time-default-load-average nil)
-
 #+end_src
-
 *** Enable Mode Diminishing
-
 The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky minor modes from the modelines.
 
 #+begin_src emacs-lisp
@@ -236,9 +215,7 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
   ;;(setup (:pkg diminish))
 
 #+end_src
-
 *** Doom Modeline
-
 #+begin_src emacs-lisp
 
       ;; You must run (all-the-icons-install-fonts) one time after
@@ -250,8 +227,7 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
   :ensure t
   :init (doom-modeline-mode 1))  
 #+end_src
-
-* tab stop
+* Tab Stop
 
 #+BEGIN_SRC emacs-lisp
   ;; set default tab char's display width to 2 spaces
@@ -267,7 +243,6 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
   ;; if indent-tabs-mode is t, it means it may use tab, resulting mixed space and tab
   )
 #+END_SRC
-
 * Git integration
 
 #+BEGIN_SRC emacs-lisp
@@ -279,7 +254,6 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
   :bind
   ("C-c m" . magit-status))
 #+END_SRC
-
 * Relative line numbers
 #+BEGIN_SRC emacs-lisp
     (require 'display-line-numbers)
@@ -301,7 +275,6 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
   (global-display-line-numbers-mode)
     (setq display-line-numbers-type 'relative)
 #+END_SRC
-
 * Reduce startup time
 #+BEGIN_SRC emacs-lisp
 ;; Increases Garbage Collection During Startup
@@ -310,14 +283,12 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
 (defun startup/reset-gc () (setq gc-cons-threshold startup/gc-cons-threshold))
 (add-hook 'emacs-startup-hook 'startup/reset-gc)
 #+END_SRC
-
 * All the Icons
 Nice little icon pack. Neotree, doom-modeline and dashboard use this although it is not strictly required.
 
 #+BEGIN_SRC emacs-lisp
   (use-package all-the-icons)
 #+END_SRC
-
 * Python
 =lsp-mode= Depends on =pyls= from pip.
 
@@ -356,11 +327,11 @@ Nice little icon pack. Neotree, doom-modeline and dashboard use this although it
   :config
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
-  (define-key company-active-map (kbd "M-n") nil)
-  (define-key company-active-map (kbd "M-p") nil)
+  ;;(define-key company-active-map (kbd "M-n") nil)
+  ;;(define-key company-active-map (kbd "M-p") nil)
   (define-key company-active-map (kbd "C-n") #'company-select-next)
   (define-key company-active-map (kbd "C-p") #'company-select-previous)
-  (define-key company-active-map (kbd "SPC") #'company-abort)
+  (define-key company-active-map (kbd "ESC") #'company-abort)
   :hook
   ((java-mode c-mode c++-mode lsp-mode) . company-mode))
 
@@ -483,7 +454,7 @@ Irony is the company backend for C and C++. Will need clang to work.
   (pdf-tools-install))
 #+END_SRC
 
-* disable autosave
+* Disable Autosave
 #+BEGIN_SRC emacs-lisp
 ;; stop creating those #auto-save# files
 (setq auto-save-default nil)
@@ -612,8 +583,7 @@ Which-key is a minor mode for Emacs that displays the key bindings following you
 
 #+end_src
 
-
-* copy buffer
+* Copy Buffer
 
 Copy contents of a buffer to a new one.
 
@@ -647,7 +617,7 @@ A great IRC client built into emacs.
         erc-autojoin-channels-alist '(("irc-libera.chat" "#emacs" "linux")))
 #+end_src
 
-* elfeed
+* Elfeed
 
 View RSS feeds in emacs.
 
@@ -658,7 +628,8 @@ View RSS feeds in emacs.
     (setq elfeed-db-directory (expand-file-name "elfeed" user-emacs-directory)
           elfeed-show-entry-switch 'display-buffer)
     :bind
-    ("C-x w" . elfeed ))
+    ("C-x w" . elfeed )
+    ("C-c u" . elfeed-update)) ;; works but needs to be moved into a non global bind
 
   ;; Load elfeed-org
   (use-package elfeed-org
@@ -693,5 +664,6 @@ View RSS feeds in emacs.
     :bind (:map elfeed-show-mode-map
                 ("C-c C-f" . elfeed-tube-mpv-follow-mode)
                 ("C-c C-w" . elfeed-tube-mpv-where)))
+
 
 #+end_src
