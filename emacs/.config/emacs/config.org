@@ -38,11 +38,11 @@ Load zenburn theme and disable the scroll bar and tool bar, but keep menu bar
 
 ** Font
 
-Use Fira Code Medium font, must have it installed obviously!
+Use Fira Code font, must have it installed obviously!
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'default-frame-alist
-             '(font . "Fira Code Medium"))
+             '(font . "Fira Code"))
 #+END_SRC
 
 ** Ligature support
@@ -467,6 +467,7 @@ Emacs' default scrolling is annoying because of the sudden half-page jumps.  Als
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 3))) ;; how many lines at a time
 (setq mouse-wheel-progressive-speed t) ;; accelerate scrolling
 (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+;;(setq pixel-scroll-precision-large-scroll-height 40.0) ;; smooth scrolling - emacs 29
 #+end_src
 
 * Neotree file manager
