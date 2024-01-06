@@ -1,0 +1,7 @@
+[user]
+	name = Charlie Braidwood
+	email = charliebraidwood@gmail.com
+[core]
+	editor = emacs
+[init]
+	defaultBranch = main
