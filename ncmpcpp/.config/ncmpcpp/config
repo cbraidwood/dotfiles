@@ -1,7 +1,7 @@
 ncmpcpp_directory = "~/.config/ncmpcpp"
 mpd_music_dir = "~/Music"
 external_editor = vim
-
+execute_on_song_change = songinfo
 
 #enable visualisation
 visualizer_data_source = "/tmp/mpd.fifo"
