@@ -4,7 +4,6 @@
 
 
 * Melpa and Use Package
-
 #+BEGIN_SRC emacs-lisp
   (require 'package)
   (setq package-enable-at-startup nil)
@@ -72,7 +71,7 @@ Setup ligatures for font using ligature.el
 This makes the emacs GUI window semi-transparent, <C-c t> will toggle the transparency.
 
 #+BEGIN_SRC emacs-lisp
-   ;;(set-frame-parameter (selected-frame) 'alpha '(<active> . <inactive>))
+  ;;(set-frame-parameter (selected-frame) 'alpha '(<active> . <inactive>))
    ;;(set-frame-parameter (selected-frame) 'alpha <both>)
    (set-frame-parameter (selected-frame) 'alpha 95)
    (add-to-list 'default-frame-alist '(alpha . 95))
@@ -92,7 +91,6 @@ This makes the emacs GUI window semi-transparent, <C-c t> will toggle the transp
 #+END_SRC
 
 * Org Roam
-
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook 'org-indent-mode)
   (setq org-directory "~/Documents/notes"
@@ -153,7 +151,7 @@ Dashboard for a new splash screen with various menus for org agenda, projectile 
 
   ;; Format: "(icon title help action face prefix suffix)"
   (setq dashboard-navigator-buttons
-         ;; line 1 (visit my github)
+         ;; line1 (visit my github)
         `(
           ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
            "Github"
@@ -234,8 +232,8 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
   :ensure t
   :init (doom-modeline-mode 1))  
 #+end_src
-* Tab Stop
 
+* Tab Stop
 #+BEGIN_SRC emacs-lisp
   ;; set default tab char's display width to 2 spaces
   (setq-default tab-width 2) ; emacs 23.1 to 26 default to 8
@@ -252,7 +250,6 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
 #+END_SRC
 
 * Git integration
-
 #+BEGIN_SRC emacs-lisp
 (use-package magit
   :ensure t
@@ -262,8 +259,8 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
   :bind
   ("C-c m" . magit-status))
 #+END_SRC
-* Relative line numbers
 
+* Relative line numbers
 #+BEGIN_SRC emacs-lisp
     (require 'display-line-numbers)
 
@@ -286,7 +283,6 @@ The [[https://github.com/myrjola/diminish.el][diminish]] package hides pesky min
 #+END_SRC
 
 * Reduce startup time
-
 #+BEGIN_SRC emacs-lisp
 ;; Increases Garbage Collection During Startup
 (setq startup/gc-cons-threshold gc-cons-threshold)
@@ -327,7 +323,6 @@ Nice little icon pack. Neotree, doom-modeline and dashboard use this although it
 #+END_SRC
 
 * Company autocompletion
-
 #+BEGIN_SRC emacs-lisp
 (use-package company
   :ensure t
@@ -378,7 +373,6 @@ Irony is the company backend for C and C++. Will need clang to work.
 #+END_SRC
 
 * Java
-
 #+BEGIN_SRC emacs-lisp
   ;; use lsp-mode. This should be in its own section
   (use-package lsp-mode
@@ -425,7 +419,6 @@ Irony is the company backend for C and C++. Will need clang to work.
 #+END_SRC
 
 * Terminal
-
 #+BEGIN_SRC emacs-lisp
 (use-package vterm
   :ensure t
@@ -434,7 +427,6 @@ Irony is the company backend for C and C++. Will need clang to work.
 #+END_SRC
 
 * LaTeX (AUCTeX)
-
 #+BEGIN_SRC emacs-lisp
   (use-package auctex
     :ensure t
@@ -492,7 +484,19 @@ Emacs' default scrolling is annoying because of the sudden half-page jumps.  Als
   ;; set icons
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
-+END_SRC
+  ;; fix evil bindings
+  ;;  (add-hook 'neotree-mode-hook
+  ;;              (lambda ()
+  ;;                (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+  ;;                (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-quick-look)
+  ;;                (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+  ;;                (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
+  ;;                (define-key evil-normal-state-local-map (kbd "g") 'neotree-refresh)
+  ;;                (define-key evil-normal-state-local-map (kbd "n") 'neotree-next-line)
+  ;;                (define-key evil-normal-state-local-map (kbd "p") 'neotree-previous-line)
+  ;;                (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
+  ;;                (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle)))
+#+END_SRC
 
 * Org tweaks
 #+BEGIN_SRC emacs-lisp
@@ -500,7 +504,6 @@ Emacs' default scrolling is annoying because of the sudden half-page jumps.  Als
 #+END_SRC
 
 * General tweaks
-
 ** kill buffers
 #+BEGIN_SRC emacs-lisp
 (global-set-key [(control x) (k)] 'kill-this-buffer)
@@ -526,7 +529,7 @@ Emacs' default scrolling is annoying because of the sudden half-page jumps.  Als
                             (?\{ . ?\})
                             (?\( . ?\))
                             (?\[ . ?\])
-;;                          (?\" . ?\")
+                            (?\" . ?\")
                             ))
 (electric-pair-mode t)
 
